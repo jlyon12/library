@@ -165,10 +165,10 @@ sortAuthorsBtn.addEventListener("click", () => {
 		const authorLastNameA = splitAuthorNameA[splitAuthorNameA.length - 1];
 		const splitAuthorNameB = b.author.split(" ");
 		const authorLastNameB = splitAuthorNameB[splitAuthorNameB.length - 1];
-		if (authorLastNameA > authorLastNameB) {
+		if (authorLastNameA.toLowerCase() > authorLastNameB.toLowerCase()) {
 			return 1;
 		}
-		if (authorLastNameA < authorLastNameB) {
+		if (authorLastNameA.toLowerCase() < authorLastNameB.toLowerCase()) {
 			return -1;
 		}
 	});

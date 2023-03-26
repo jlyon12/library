@@ -18,6 +18,15 @@ This was created using HTML, CSS and vanilla JavaScript. The purpose of this pro
   - Various bug fixes and optimizations
   - See [commit change]() or See [release history]() -->
 
+- 1.1
+
+  - Added the ability to sort the book collection by :
+    - Title A-Z
+    - Author Last Name A-Z
+    - Longest Book
+    - Shortest Book First
+    - Unread Books First
+
 - 1.0
   - Initial Release
 
