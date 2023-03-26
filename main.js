@@ -66,9 +66,9 @@ function generateStats() {
 }
 
 // Generate DOM elements
-function generateBookCards() {
+function generateBookCards(array) {
 	bookCollection.textContent = "";
-	library.forEach((book) => {
+	array.forEach((book) => {
 		const bookCard = document.createElement("div");
 		bookCard.classList.add("book-card");
 		// Link each bookCard DOM element to library array corresponding index
@@ -85,7 +85,7 @@ function generateBookCards() {
 					library[bookIndex].readStatus = true;
 				}
 			}
-			generateBookCards();
+			generateBookCards(array);
 			generateStats();
 		});
 		// Add elements to bookCard DOM element
@@ -131,8 +131,89 @@ btnSubmitEntry.onclick = () => {
 	) {
 		addBookToLibrary();
 		generateStats();
-		generateBookCards();
+		generateBookCards(library);
 		bookCardModal.classList.add("hidden");
 		mainContent.classList.remove("fade");
 	}
 };
+
+// Show / Hide sorting btns
+
+const showSortingBtn = document.getElementById("show-sorting-btn");
+const sortingBtnsContainer = document.getElementById("sort-btns");
+
+showSortingBtn.onclick = () => {
+	sortingBtnsContainer.classList.toggle("hidden");
+
+	if (sortingBtnsContainer.classList.contains("hidden")) {
+		showSortingBtn.textContent = "Show Sorting Options";
+	} else if (!sortingBtnsContainer.classList.contains("hidden")) {
+		showSortingBtn.textContent = "Hide Sorting Options";
+	}
+};
+
+// Sorting the library
+const sortAuthorsBtn = document.getElementById("sort-author-btn");
+const sortTitlesBtn = document.getElementById("sort-title-btn");
+const sortShortestBtn = document.getElementById("sort-shortest-btn");
+const sortLongestBtn = document.getElementById("sort-longest-btn");
+const sortUnreadBtn = document.getElementById("sort-unread-btn");
+
+sortAuthorsBtn.addEventListener("click", () => {
+	const sortedAuthors = library.sort((a, b) => {
+		const splitAuthorNameA = a.author.split(" ");
+		const authorLastNameA = splitAuthorNameA[splitAuthorNameA.length - 1];
+		const splitAuthorNameB = b.author.split(" ");
+		const authorLastNameB = splitAuthorNameB[splitAuthorNameB.length - 1];
+		if (authorLastNameA > authorLastNameB) {
+			return 1;
+		}
+		if (authorLastNameA < authorLastNameB) {
+			return -1;
+		}
+	});
+
+	generateBookCards(sortedAuthors);
+});
+
+sortTitlesBtn.addEventListener("click", () => {
+	const sortedTitles = library.sort((a, b) => {
+		if (a.title.toLowerCase() > b.title.toLowerCase()) {
+			return 1;
+		}
+		if (a.title.toLowerCase() < b.title.toLowerCase()) {
+			return -1;
+		}
+	});
+
+	generateBookCards(sortedTitles); //
+});
+
+sortShortestBtn.addEventListener("click", () => {
+	const sortedShortest = library.sort((a, b) =>
+		a.pageCount > b.pageCount ? 1 : -1
+	);
+
+	generateBookCards(sortedShortest); //
+});
+
+sortLongestBtn.addEventListener("click", () => {
+	const sortedLongest = library.sort((a, b) =>
+		a.pageCount < b.pageCount ? 1 : -1
+	);
+
+	generateBookCards(sortedLongest); //
+});
+
+sortUnreadBtn.addEventListener("click", () => {
+	const sortedUnread = library.sort((a, b) => {
+		if (a.readStatus === true && b.readStatus === false) {
+			return 1;
+		}
+		if (a.readStatus === false && b.readStatus === true) {
+			return -1;
+		}
+	});
+
+	generateBookCards(sortedUnread); //
+});
