@@ -1,0 +1,358 @@
+@font-face {
+	font-family: "Montserrat Regular";
+	src: local(Montserrat Regular),
+		url("./assets/fonts/Montserrat/Montserrat-VariableFont_wght.woff2")
+			format("woff2");
+}
+@font-face {
+	font-family: "Montserrat Italic";
+	src: local(Montserrat Italic),
+		url("./assets/fonts/Montserrat/Montserrat-Italic-VariableFont_wght.woff2")
+			format("woff2");
+}
+
+:root {
+	--ff-primary: "Montserrat Regular", sans-serif;
+}
+
+:root .lightmode {
+	--clr-background: #fff;
+	--clr-modal: #e9e9ed;
+	--clr-accent: #001524;
+	--clr-modal-btn: #3dcc74;
+	--clr-modal-btn-text: #fff;
+	--clr-book-card: #e9e9ed;
+	--clr-text: #001524;
+	--clr-btn: #e9e9ed;
+	--clr-btn-read: #3dcc74;
+	--clr-btn-unread: #ff3939;
+	--clr-btn-status-text: #fff;
+	--clr-btn-toggle-bg: #e9e9ed;
+	--clr-btn-toggle-text: #001524;
+}
+
+:root .darkmode {
+	--clr-background: #0e1116;
+	--clr-modal: #171b21;
+	--clr-accent: #4ae6bc;
+	--clr-modal-btn: #3dcc74;
+	--clr-modal-btn-text: #fff;
+	--clr-book-card: #171b21;
+	--clr-text: #bebebe;
+	--clr-btn: #171b21;
+	--clr-btn-read: #3dcc74;
+	--clr-btn-unread: #ff3939;
+	--clr-btn-status-text: #fff;
+	--clr-btn-toggle-bg: #171b21;
+	--clr-btn-toggle-text: #bebebe;
+}
+/*
+  Josh's Custom CSS Reset
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+* {
+	margin: 0;
+}
+html,
+body {
+	height: 100%;
+}
+body {
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
+	font-family: var(--ff-primary);
+	color: var(--clr-text);
+	background-color: var(--clr-background);
+}
+img,
+picture,
+video,
+canvas,
+svg {
+	display: block;
+	max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	overflow-wrap: break-word;
+}
+
+/* ----- End CSS Reset ----- */
+
+/* General Page Layout */
+
+.wrapper {
+	position: relative;
+	min-height: 100vh;
+	padding: 0.5rem;
+	display: grid;
+	justify-items: center;
+	grid-template-areas:
+		"header"
+		"main"
+		"footer";
+	grid-template-rows: min-content 1fr min-content;
+	align-content: space-between;
+}
+
+.header {
+	grid-area: header;
+	display: grid;
+	align-items: center;
+	grid-template-columns: 1fr 2fr 1fr;
+	grid-auto-flow: column;
+	width: 100%;
+}
+.header h1 {
+	text-align: center;
+	/* margin-right: auto; */
+}
+.header > svg {
+	flex-shrink: 0;
+	height: 5rem;
+	color: var(--clr-accent);
+	border: 4px solid var(--clr-accent);
+}
+.toggle-btn svg {
+	color: var(--clr-btn-toggle-text);
+	height: 2rem;
+	flex-shrink: 0;
+}
+.toggle-btn {
+	justify-self: end;
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+	appearance: none;
+	justify-content: space-between;
+	border: transparent;
+	background-color: var(--clr-btn-toggle-bg);
+	color: var(--clr-btn-toggle-text);
+	width: fit-content;
+	height: fit-content;
+	padding: 0.5em;
+	border-radius: 24px;
+
+	/* font-size: 3rem;; */
+}
+.main {
+	grid-area: main;
+	display: flex;
+	flex-direction: column;
+	padding: 2rem;
+
+	gap: 1rem;
+}
+
+.main > button {
+	width: fit-content;
+	align-self: center;
+}
+
+.footer {
+	grid-area: footer;
+	align-self: end;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+	width: 100%;
+}
+
+.footer svg {
+	height: 1.75rem;
+	color: var(--clr-accent);
+}
+
+.footer a {
+	text-decoration: none;
+	font-weight: 600;
+	color: var(--color-text);
+}
+.hidden {
+	display: none;
+}
+
+.fade > :not(.new-book-modal) {
+	opacity: 50%;
+}
+
+.button {
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	appearance: none;
+	border: transparent !important;
+	border-radius: 8px;
+	padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+	font-weight: 600;
+	width: fit-content;
+	background-color: var(--clr-btn);
+	color: var(--clr-text);
+}
+.button:hover {
+	transform: scale(1.05);
+}
+.button svg {
+	display: inline-block;
+	height: 1.5rem;
+	margin-right: 0.5rem;
+}
+
+/* Book Modal Styling */
+.new-book-modal {
+	position: absolute;
+	z-index: 1;
+	left: 50%;
+	transform: translate(-50%);
+	background-color: var(--clr-modal);
+	color: var(--clr-text);
+	border: 0.25rem solid var(--clr-accent);
+	width: 300px;
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+}
+
+.new-book-modal form > button {
+	color: var(--clr-modal-btn-text);
+	background-color: var(--clr-modal-btn);
+	margin-inline: auto;
+}
+
+.modal-control {
+	display: flex;
+	justify-content: end;
+}
+.modal-control button {
+	cursor: pointer;
+	appearance: none;
+	border: transparent !important;
+	background-color: var(--clr-modal);
+}
+
+.modal-control svg {
+	color: #ff3939;
+	height: 2rem;
+}
+.modal-control svg:hover {
+	transform: scale(1.1);
+}
+
+legend {
+	margin-inline: auto;
+	font-weight: 600;
+}
+.form {
+	display: grid;
+	gap: 1rem;
+}
+
+.fieldset-main {
+	display: grid;
+	place-content: center;
+	place-items: center;
+	border: transparent;
+}
+
+.form-control {
+	margin-top: 0.5rem;
+	margin-bottom: 0.25rem;
+	font-weight: 600;
+}
+
+/* Stats Styling */
+
+.stats-container {
+	margin-inline: auto;
+	display: flex;
+	flex-direction: column;
+	font-weight: 600;
+}
+
+.stats-container p {
+	display: flex;
+	justify-content: space-between;
+}
+
+.stats-container span {
+	margin-left: 1rem;
+	font-weight: 400;
+}
+
+/* Book Collection and Book Card Styling */
+.book-collection {
+	display: grid;
+	max-width: calc(100vw - 4rem);
+	grid-template-rows: repeat(auto-fill, minmax(min-content, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+	margin-top: 2rem;
+	gap: 2rem;
+}
+.book-card {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	text-align: center;
+	padding: 1rem;
+	background-color: var(--clr-book-card);
+	color: var(--clr-text);
+	border-radius: 8px;
+	border-left: 0.25rem solid var(--clr-accent);
+}
+
+.btn-delete-book {
+	position: relative;
+	left: 0.5rem;
+	bottom: 0.5rem;
+	display: flex;
+	margin-left: auto;
+	border: transparent;
+	background-color: var(--clr-book-card);
+	color: var(--clr-btn-unread);
+	width: fit-content;
+}
+
+.btn-delete-book:after {
+	height: 1.75rem;
+	width: 1.75rem;
+	content: url(./assets/images/icons/delete.svg);
+}
+
+.btn-delete-book:hover {
+	transform: scale(1.1);
+}
+.book-card > p:nth-of-type(2) {
+	font-style: italic !important;
+	font-weight: 300;
+}
+
+.read-book,
+.unread-book {
+	margin-top: auto;
+	margin-inline: auto;
+	color: var(--clr-btn-status-text);
+}
+
+.read-book {
+	background-color: var(--clr-btn-read);
+}
+.unread-book {
+	background-color: var(--clr-btn-unread);
+}
