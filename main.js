@@ -27,7 +27,7 @@ const btnSubmitEntry = document.getElementById("submit-book");
 // Create New Book Object via Form Modal
 const bookCollection = document.querySelector(".book-collection");
 
-const library = [];
+let library = [];
 
 class Book {
 	constructor(title, author, pageCount, readStatus) {
@@ -48,7 +48,7 @@ function addBookToLibrary() {
 	library.push(newEntry);
 	bookCardForm.reset();
 }
-// Generate Stats
+// Generate Library Statistics
 function generateStats() {
 	const totalBooksOutput = document.getElementById("total-books");
 	totalBooksOutput.textContent = library.length;
@@ -65,8 +65,11 @@ function generateStats() {
 	totalPagesReadOutput.textContent = totalPagesRead;
 }
 
-// Generate DOM elements
+// Generate DOM element for each book object in library array and save an updated library in local storage
 function generateBookCards(array) {
+	function saveLibrary() {
+		localStorage.setItem("savedLibrary", JSON.stringify(library));
+	}
 	bookCollection.textContent = "";
 	array.forEach((book) => {
 		const bookCard = document.createElement("div");
@@ -120,6 +123,15 @@ function generateBookCards(array) {
 
 		bookCollection.appendChild(bookCard);
 	});
+	saveLibrary();
+}
+
+// Check if localStorage is present and generate the library + stats on page
+const savedLibrary = JSON.parse(localStorage.getItem("savedLibrary"));
+if (savedLibrary !== null) {
+	library = library.concat(savedLibrary);
+	generateStats();
+	generateBookCards(library);
 }
 
 // Run all relevant functions when a new book is submitted
@@ -152,7 +164,7 @@ showSortingBtn.onclick = () => {
 	}
 };
 
-// Sorting the library
+// Methods to sort the library
 const sortAuthorsBtn = document.getElementById("sort-author-btn");
 const sortTitlesBtn = document.getElementById("sort-title-btn");
 const sortShortestBtn = document.getElementById("sort-shortest-btn");

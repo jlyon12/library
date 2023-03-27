@@ -18,6 +18,10 @@ This was created using HTML, CSS and vanilla JavaScript. The purpose of this pro
   - Various bug fixes and optimizations
   - See [commit change]() or See [release history]() -->
 
+- 1.2
+
+  - Added the ability save the library to local storage
+
 - 1.1
 
   - Added the ability to sort the book collection by :
