@@ -18,6 +18,10 @@ This was created using HTML, CSS and vanilla JavaScript. The purpose of this pro
   - Various bug fixes and optimizations
   - See [commit change]() or See [release history]() -->
 
+- 1.3
+
+  - Added the ability edit a book without adding a new book to the library.
+
 - 1.2
 
   - Added the ability save the library to local storage
@@ -51,6 +55,8 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 - <a href="https://pictogrammers.com/library/mdi/icon/book-plus-outline/">Book-plus-outline by Colton Wiscombe - Pictogrammers</a>
 
 - <a href="https://pictogrammers.com/library/mdi/icon/delete/">Delete by Google - Pictogrammers</a>
+
+- <a href="https://pictogrammers.com/library/mdi/icon/book-edit/">Book-edit by Colton Wiscombe - Pictogrammers</a>
 
 - <a href="https://github.com/logos">Github Icon</a>
 

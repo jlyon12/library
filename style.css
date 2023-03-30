@@ -350,16 +350,21 @@ legend {
 	border-left: 0.25rem solid var(--clr-accent);
 }
 
-.btn-delete-book {
-	position: relative;
-	left: 0.5rem;
-	bottom: 0.5rem;
+.book-card-btns {
 	display: flex;
-	margin-left: auto;
+	justify-content: space-between;
+}
+.btn-edit-book,
+.btn-delete-book {
+	display: flex;
 	border: transparent;
 	background-color: var(--clr-book-card);
-	color: var(--clr-btn-unread);
-	width: fit-content;
+}
+
+.btn-edit-book:after {
+	height: 1.75rem;
+	width: 1.75rem;
+	content: url(./assets/images/icons/book-edit.svg);
 }
 
 .btn-delete-book:after {
@@ -368,7 +373,8 @@ legend {
 	content: url(./assets/images/icons/delete.svg);
 }
 
-.btn-delete-book:hover {
+.btn-delete-book:hover,
+.btn-edit-book:hover {
 	transform: scale(1.1);
 }
 .book-card > p:nth-of-type(2) {

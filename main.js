@@ -4,18 +4,6 @@ const bookCardModal = document.getElementById("new-book-modal");
 const mainContent = document.getElementById("main-content");
 const btnCloseModal = document.getElementById("close-modal-btn");
 
-btnAddBook.onclick = (e) => {
-	e.stopPropagation();
-	bookCardModal.classList.remove("hidden");
-	mainContent.classList.add("fade");
-};
-
-btnCloseModal.onclick = (e) => {
-	e.stopPropagation();
-	bookCardModal.classList.add("hidden");
-	mainContent.classList.remove("fade");
-};
-
 // Book Modal Form Controls
 const bookCardForm = document.getElementById("new-book-form");
 const inputTitle = document.getElementById("title");
@@ -23,6 +11,20 @@ const inputAuthor = document.getElementById("author");
 const inputPageCount = document.getElementById("page-count");
 const inputReadStatus = document.getElementById("read-status");
 const btnSubmitEntry = document.getElementById("submit-book");
+const btnEditEntry = document.getElementById("edit-book");
+
+btnAddBook.onclick = (e) => {
+	e.stopPropagation();
+	bookCardModal.classList.remove("hidden");
+	mainContent.classList.add("fade");
+	bookCardForm.reset();
+};
+
+btnCloseModal.onclick = (e) => {
+	e.stopPropagation();
+	bookCardModal.classList.add("hidden");
+	mainContent.classList.remove("fade");
+};
 
 // Create New Book Object via Form Modal
 const bookCollection = document.querySelector(".book-collection");
@@ -88,14 +90,42 @@ function generateBookCards(array) {
 					library[bookIndex].readStatus = true;
 				}
 			}
+			// Repurpose the add book form to edit the book object and update the array via hidden form button
+			else if (e.target.classList.contains("btn-edit-book")) {
+				bookCardModal.classList.remove("hidden");
+				mainContent.classList.add("fade");
+				btnSubmitEntry.classList.add("hidden");
+				btnEditEntry.classList.remove("hidden");
+				inputTitle.value = library[bookIndex].title;
+				inputAuthor.value = library[bookIndex].author;
+				inputPageCount.value = library[bookIndex].pageCount;
+				inputReadStatus.checked = library[bookIndex].readStatus;
+				btnEditEntry.addEventListener("click", () => {
+					library[bookIndex].title = inputTitle.value;
+					library[bookIndex].author = inputAuthor.value;
+					library[bookIndex].pageCount = Number(inputPageCount.value);
+					library[bookIndex].readStatus = inputReadStatus.checked;
+					bookCardModal.classList.add("hidden");
+					mainContent.classList.remove("fade");
+					btnSubmitEntry.classList.remove("hidden");
+					btnEditEntry.classList.add("hidden");
+					generateStats();
+					generateBookCards(array);
+				});
+			}
 			generateBookCards(array);
 			generateStats();
 		});
 		// Add elements to bookCard DOM element
+		const bookControlsContainer = document.createElement("div");
+		bookControlsContainer.classList.add("book-card-btns");
+		bookCard.appendChild(bookControlsContainer);
+		const btnEditBook = document.createElement("button");
+		btnEditBook.classList.add("btn-edit-book");
+		bookControlsContainer.appendChild(btnEditBook);
 		const btnDeleteBook = document.createElement("button");
 		btnDeleteBook.classList.add("btn-delete-book");
-
-		bookCard.appendChild(btnDeleteBook);
+		bookControlsContainer.appendChild(btnDeleteBook);
 
 		const cardTitle = document.createElement("p");
 		cardTitle.textContent = `"${book.title}"`;
