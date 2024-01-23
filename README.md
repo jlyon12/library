@@ -10,7 +10,7 @@ This was created using HTML, CSS and vanilla JavaScript. The purpose of this pro
 
 ## Getting Started
 
-**Live Demo** <a href="https://probableactions.github.io/library/"> here</a>
+**Live Demo** <a href="https://jlyon12.github.io/library/"> here</a>
 
 ## Version History
 
